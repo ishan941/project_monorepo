@@ -1,0 +1,21 @@
+workflows:
+  ci:
+    name: CI
+    instance_type: mac_mini
+    max_build_duration: 15
+    environment:
+      flutter: stable
+    triggering:
+      events:
+        - pull_request
+    scripts:
+      - name: Melos Bootstrap
+        script: |
+          dart pub global activate melos
+          melos bootstrap
+      - name: Run Analyze
+        script: melos run analyze
+      - name: Run Format
+        script: melos run format
+      - name: Run Tests
+        script: melos run test
